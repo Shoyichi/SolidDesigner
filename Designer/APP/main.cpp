@@ -1,5 +1,7 @@
 ﻿#include <helpers/loglog.h>
 #include <log4cplus/initializer.h>
+#include "AliceIAppLauncher.h"
+#include "AliceDiagnosticMacro.h"
 //#include "UiApplicationImpl/AliceUiApplicationProxy.h"
 //#include "AliceNew.h"
 //#include "AliceIApplicationProxyManager.h"
@@ -7,7 +9,8 @@
 //#include "AliceDiagnosticMacro.h"
 
 using namespace log4cplus::helpers;
-//using namespace alice;
+using namespace alice;
+
 int main(int argc, char *argv[])
 {
     //IApplicationProxyManager* pProxyMgr = IApplicationProxyManager::Get();
@@ -17,6 +20,8 @@ int main(int argc, char *argv[])
     //DBG_WARN_AND_RETURN_UNLESS(pApp, -1, L"pApp is null", L"hananiah", L"2023.08.27");
     //int nResult = pApp->Execute();
     //return nResult;
+    OwningPtr<IAppLauncher> opLauncher = IAppLauncher::Create();
+    DIAG_RETURN_IF_FALSE(opLauncher, 0, "", "hananiah", "2025.11.1");
 
     return 0;
 }

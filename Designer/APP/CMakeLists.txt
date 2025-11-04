@@ -79,7 +79,8 @@ source_group(UI\\GUI FILES ${GUI})
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-include_directories(${PROJECT_SOURCE_DIR}/Alice/AliceBasicService/Public)
+include_directories(${PROJECT_SOURCE_DIR}/Alice/Bootstrap/AliceLaunchCore/Public)
+include_directories(${PROJECT_SOURCE_DIR}/Alice/Core/Foundation/AliceBasicService/Public)
 include_directories(${PROJECT_SOURCE_DIR}/Alice/AliceCommonApplication/Public)
 include_directories(${PROJECT_SOURCE_DIR}/Alice/InteractionLayer/Interface/AliceApplicationInterface/Public)
 include_directories(${PROJECT_SOURCE_DIR}/QFrameWork/AliceUiFrameWork)
@@ -173,6 +174,7 @@ link_libraries(AliceApplicationInterface.lib)
 link_libraries(AliceUiFrameWork.lib)
 link_libraries(AliceBasicService.lib)
 link_libraries(AliceComponentSystem.lib)
+link_libraries(AliceLaunchCore.lib)
 #-----------------------------------------------------------------------------
 # 添加可执行程序目标
 #-----------------------------------------------------------------------------
