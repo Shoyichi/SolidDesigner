@@ -144,7 +144,7 @@ link_directories(${CMAKE_SOURCE_DIR}/externals/3rdParty/lib)
 link_directories(${CMAKE_SOURCE_DIR}/externals/3rdParty/lib/sfml)
 
 #@3. 指定exe的输出路径
-message("可执行文件的输出路径：")
+message("The executable file's path is: ")
 message(${PROJECT_SOURCE_DIR})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}/x64/Debug) 
@@ -153,8 +153,8 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}/x64/Release)
 #@4. 指定自定义库的链接路径
 #这个话会一次性添加两条路径，自动判断编译类型，智能！
 #link_directories(${PROJECT_SOURCE_DIR}/bin)
-message("链接库的路径：")
-message("${CMAKE_BINARY_DIR}")
+message("The path of link lib: ")
+message("CMAKE_BINARY_DIR = ${CMAKE_BINARY_DIR}")
 link_directories(${CMAKE_BINARY_DIR}/x64/${CMAKE_BUILD_TYPE})
 
 
@@ -162,8 +162,7 @@ link_directories(${CMAKE_BINARY_DIR}/x64/${CMAKE_BUILD_TYPE})
 # 库文件链接路径<add_executable之前>
 # link_libraries 不会为每个目标生成链接路径。而是直接添加库的名称。
 #-----------------------------------------------------------------------------
-message("当前的工程名称是: ")
-message(${PROJECT_NAME})
+message("PROJECT_NAME = ${PROJECT_NAME}")
 link_libraries(glu32.lib)
 link_libraries(glew32.lib)
 link_libraries(opengl32.lib)
@@ -175,6 +174,24 @@ link_libraries(AliceUiFrameWork.lib)
 link_libraries(AliceBasicTool.lib)
 link_libraries(AliceComponentSystem.lib)
 link_libraries(AliceLaunchCore.lib)
+
+
+#-----------------------------------------------------------------------------
+# QRC文件打包及前处理命令
+#-----------------------------------------------------------------------------
+set(GEN_RCC_BAT   "${CMAKE_SOURCE_DIR}/Designer/UIResource/GenerateRcc.bat")
+set(GEN_RCC_WD    "${CMAKE_SOURCE_DIR}/Designer/UIResource")
+set(SD_RCC_DIR    "${CMAKE_BINARY_DIR}/rcc")
+set(SD_RCC_FILE   "${SD_RCC_DIR}/SolidDesignerRes.rcc")
+
+# 收集所有 .qrc（改变时触发重建）
+file(GLOB_RECURSE SD_QRCS "${GEN_RCC_WD}/*.qrc")
+
+
+
+
+
+
 #-----------------------------------------------------------------------------
 # 添加可执行程序目标
 #-----------------------------------------------------------------------------
@@ -201,6 +218,28 @@ add_executable(${PROJECT_NAME}
  ${SYS}
  ${APP_FILES})
 
+ # 定义：如何生成 .rcc
+add_custom_command(OUTPUT "${SD_RCC_FILE}"
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${SD_RCC_DIR}"
+  COMMAND ${CMAKE_COMMAND} -E echo ">>> GenerateRCC: ${GEN_RCC_BAT} -> ${SD_RCC_FILE}"
+  COMMAND ${CMAKE_COMMAND} -E env "QTDIR_X64=$ENV{QTDIR_X64}" "${GEN_RCC_BAT}" "${SD_RCC_DIR}"
+
+  WORKING_DIRECTORY "${GEN_RCC_WD}"
+  DEPENDS ${SD_QRCS}           # .qrc 变更触发
+  VERBATIM
+)
+
+ # 声明一个“资源生成”目标，并让可执行程序依赖它
+add_custom_target(SolidDesignerRes ALL DEPENDS "${SD_RCC_FILE}")
+add_dependencies(${PROJECT_NAME} SolidDesignerRes)
+
+# 无论什么生成器，把 .rcc 复制到运行目录（等价于通用版 “Pre-Build”）
+add_custom_command(TARGET ${PROJECT_NAME} PRE_BUILD
+  COMMAND ${CMAKE_COMMAND} -E make_directory "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+  COMMAND ${CMAKE_COMMAND} -E copy_if_different
+          "${SD_RCC_FILE}" "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources/SolidDesignerRes.rcc"
+  VERBATIM
+)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES FOLDER "Designer/APP")
 
