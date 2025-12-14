@@ -43,7 +43,7 @@ namespace sdr
 		///
 		/// The returned reference is valid for the lifetime of the command
 		/// instance. If no id was set, an empty string is returned.
-		const std::string& Id() const noexcept override;
+		const std::string_view& Id() const noexcept override;
 
 		/// \brief Whether the command is supported in the current environment.
 		///

@@ -43,7 +43,12 @@ link_directories(${ALICE_LIB_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/Alice/Core/Foundation/AliceBasicTool/Public)
+include_directories(${PROJECT_SOURCE_DIR}/Alice/Core/Foundation/AliceFoundation/Public)
 include_directories(${PROJECT_SOURCE_DIR}/Alice/Interaction/Interface/AliceCommandInterface/Public)
+include_directories(${PROJECT_SOURCE_DIR}/Alice/Interaction/Interface/AliceOperationInterface/Public)
+include_directories(${PROJECT_SOURCE_DIR}/Alice/Data/Interface/AliceModelInterface/Public)
+
+include_directories(${PROJECT_SOURCE_DIR}/Alice/UI/QFrameWork/AliceUiFrameWork/Public)
 
 #=============================================================================
 #指定工程为动态库程序
@@ -143,8 +148,12 @@ set_source_files_properties(${COMMANDS_HDR} PROPERTIES GENERATED TRUE)
 # @1、链接的动作需要放到add_library之后
 #-----------------------------------------------------------------------------
 target_link_libraries(SolidDesignerCommand
+    AliceFoundation
     AliceBasicTool
     AliceCommandInterface
+    AliceOperationInterface
+    AliceModelInterface
+    AliceUiFrameWork
 )
 
 

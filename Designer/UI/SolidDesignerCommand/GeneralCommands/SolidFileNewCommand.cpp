@@ -1,5 +1,9 @@
 #include "SolidFileNewCommand.h"
-#include "../../AliceOperationInterface/Public/AliceIOperation.h"
+#include "AliceIOperation.h"
+#include "SolidDesignerCommands.h"
+#include "AliceIDocumentManager.h"
+#include "AliceIMainWindow.h"
+#include "AliceCommandParameter.h"
 
 using namespace alice;
 using namespace sdr;
@@ -9,20 +13,14 @@ SolidFileNewCommand::~SolidFileNewCommand()
 
 }
 
-SolidFileNewCommand::SolidFileNewCommand(alice::IMainWindow* mainWindow, alice::IDocumentManager* docManager) noexcept
+SolidFileNewCommand::SolidFileNewCommand() noexcept
 {
 
 }
 
-const std::string& sdr::SolidFileNewCommand::Id() const noexcept
+const std::string_view& sdr::SolidFileNewCommand::Id() const noexcept
 {
-	static std::string id;
-	return id;
-}
-
-std::unique_ptr<alice::IOperation> SolidFileNewCommand::Execute(const alice::CommandParameter& param)
-{
-	return nullptr;
+	return sdr::Cmd::FILE_NEW;
 }
 
 std::string SolidFileNewCommand::DisabledReason() const
@@ -43,4 +41,9 @@ bool SolidFileNewCommand::IsVisible() const
 bool SolidFileNewCommand::IsSupported() const
 {
 	return true;
+}
+
+std::unique_ptr<alice::IOperation> SolidFileNewCommand::Execute(const alice::CommandParameter& param)
+{
+	return nullptr;
 }

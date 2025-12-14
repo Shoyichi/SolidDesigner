@@ -108,7 +108,7 @@ namespace sdr
 
         // === Category: help ===
         inline constexpr std::string_view HELP_ABOUT                     = "help.about"; // About
-        inline constexpr std::string_view HELP_CONTENTS                  = "help.contents"; // Help Contents
+        inline constexpr std::string_view CMD_HELP_CONTENTS              = "help.contents"; // Help Contents
 
         // === Category: measure ===
         inline constexpr std::string_view MEASURE_ANGLE                  = "measure.angle"; // Angle

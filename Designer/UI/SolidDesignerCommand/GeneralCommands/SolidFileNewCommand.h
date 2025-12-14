@@ -17,12 +17,12 @@ namespace sdr
 	class SolidFileNewCommand final : public AppCommandBase
 	{
 	public:
-		SolidFileNewCommand(alice::IMainWindow* mainWindow, alice::IDocumentManager* docManager) noexcept;
+		SolidFileNewCommand() noexcept;
 
 		~SolidFileNewCommand() override;
 
 		/// \brief Logical command id, must match CommandsConfig.xml: id="file.new"
-		const std::string& Id() const noexcept override;
+		const std::string_view& Id() const noexcept override;
 
 		bool IsSupported() const override;
 		bool IsVisible() const override;

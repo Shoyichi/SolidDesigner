@@ -22,7 +22,7 @@ AppCommandBase::~AppCommandBase()
 
 }
 
-const std::string& AppCommandBase::Id() const noexcept
+const std::string_view& AppCommandBase::Id() const noexcept
 {
 	return m_id;
 }
