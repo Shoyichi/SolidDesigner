@@ -62,8 +62,5 @@ xcopy C:\Qt\Qt5.15.14\5.15.14\msvc2019_64\bin\Qt5Network.dll %CURRENT_NEW_DIR%\x
 xcopy .\Designer\Data\*.*  %CURRENT_NEW_DIR%\x64\Release\Data   /s /h 
 xcopy .\Designer\Data\*.*  %CURRENT_NEW_DIR%\x64\Debug\Data   /s /h 
 
-xcopy .\Designer\Config\*.*  %CURRENT_NEW_DIR%\x64\Release\Config   /s /h 
-xcopy .\Designer\Config\*.*  %CURRENT_NEW_DIR%\x64\Debug\Config   /s /h 
-
 pause
 exit

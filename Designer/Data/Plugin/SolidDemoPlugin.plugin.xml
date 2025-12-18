@@ -5,7 +5,7 @@
   <RelativePath>Plugins/SolidDemoPlugin.dll</RelativePath>
 
   <Dependencies>
-	  
+	  DemoDependencyPlugin
   </Dependencies>
 
   <LoadAtStartUp>true</LoadAtStartUp>

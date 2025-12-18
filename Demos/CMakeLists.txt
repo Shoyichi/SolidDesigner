@@ -5,8 +5,7 @@
 ##########################################################################################################
 
 add_subdirectory(DemoPlugin)
-
-
+add_subdirectory(DemoDependencyPlugin)
 
 
 
